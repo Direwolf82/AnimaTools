@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using System.Collections;
-using AnimaTools.Enums;
+using CoreRules.Enums;
 
 namespace AnimaTools_UnitTests.TestData {
     public class FailedAttackValues {

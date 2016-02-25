@@ -1,11 +1,7 @@
-﻿using AnimaTools.Enums;
+﻿using CoreRules.Enums;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace AnimaTools.Game_Logic {
+namespace CoreRules.Game_Logic {
     public static class MeleeAttack {
 
         /// <summary>
@@ -15,30 +11,42 @@ namespace AnimaTools.Game_Logic {
         /// <param name="DefenderArmour">The armour value the defender has against the attacker's attack type</param>
         /// <returns>A tuple that describes if the attack hit for damage and the damage percentage, hit for no damage or triggered a counteracttack with or without a bonus to the counterattack.</returns>
         public static Tuple<AttackResults, int> ResolveAttack(int AttackResult, int DefenderArmour) {
+            if (DefenderArmour < 0) {
+                throw new ArgumentOutOfRangeException("DefenderArmour", "Armour value canot be less than 0");
+            }
+            else if (DefenderArmour > 10) {
+                throw new ArgumentOutOfRangeException("DefenderArmour", "Armour value cannot be greater than 10");
+            }
             int resultValue;
             if (AttackResult < -301) {
                 AttackResult = -301;
-            }else if(AttackResult > 400) {
+            }
+            else if (AttackResult > 400) {
                 AttackResult = 400;
             }
             if (AttackResult < 0) {
-                resultValue = (((Math.Abs(AttackResult) -1)-((Math.Abs(AttackResult) - 1)% 10)) ) / 2;
+                resultValue = (((Math.Abs(AttackResult) - 1) - ((Math.Abs(AttackResult) - 1) % 10))) / 2;
                 return new Tuple<AttackResults, int>(AttackResults.CounterAttack, resultValue);
-            }else if(AttackResult >= 0 && AttackResult < 30) {
+            }
+            else if (AttackResult >= 0 && AttackResult < 30) {
                 return new Tuple<AttackResults, int>(AttackResults.HitNoDamage, 0);
-            }else if (AttackResult >= 30 && AttackResult < 40) {
+            }
+            else if (AttackResult >= 30 && AttackResult < 40) {
                 if (DefenderArmour < 3) {
                     return new Tuple<AttackResults, int>(AttackResults.HitWithDamage, 10);
                 }
                 else {
                     return new Tuple<AttackResults, int>(AttackResults.HitNoDamage, 0);
                 }
-            }else if(AttackResult >= 40 && AttackResult < 50) {
-                if(DefenderArmour == 0) {
+            }
+            else if (AttackResult >= 40 && AttackResult < 50) {
+                if (DefenderArmour == 0) {
                     return new Tuple<AttackResults, int>(AttackResults.HitWithDamage, 30);
-                }else if (DefenderArmour == 1 || DefenderArmour == 2) {
+                }
+                else if (DefenderArmour == 1 || DefenderArmour == 2) {
                     return new Tuple<AttackResults, int>(AttackResults.HitWithDamage, 20);
-                }else if(DefenderArmour == 3) {
+                }
+                else if (DefenderArmour == 3) {
                     return new Tuple<AttackResults, int>(AttackResults.HitWithDamage, 10);
                 }
                 else {
@@ -47,7 +55,7 @@ namespace AnimaTools.Game_Logic {
             }
             else {
                 resultValue = AttackResult - (AttackResult % 10) - (DefenderArmour * 10);
-                if(resultValue <= 0) {
+                if (resultValue <= 0) {
                     return new Tuple<AttackResults, int>(AttackResults.HitNoDamage, 0);
                 }
                 else {
@@ -57,4 +65,3 @@ namespace AnimaTools.Game_Logic {
         }
     }
 }
-

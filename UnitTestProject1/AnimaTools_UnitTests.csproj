@@ -85,6 +85,10 @@
       <Project>{622a1722-b0d5-48fd-9a94-66b9ad64dc40}</Project>
       <Name>AnimaTools</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CoreRules\CoreRules.csproj">
+      <Project>{43108929-1961-46ff-86a6-857ff9c456a7}</Project>
+      <Name>CoreRules</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

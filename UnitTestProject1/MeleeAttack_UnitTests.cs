@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using NUnit;
 using NUnit.Framework;
-using AnimaTools.Game_Logic;
-using AnimaTools.Enums;
+using CoreRules.Enums;
+using CoreRules.Game_Logic;
 using AnimaTools_UnitTests.TestData;
 
 namespace AnimaTools_UnitTests {
@@ -27,6 +24,16 @@ namespace AnimaTools_UnitTests {
         [Test, TestCaseSource(typeof(SuccessfulAttacks), "TestCases")]
         public Tuple<AttackResults, int> AttackEqualToOrHigherThanDefense(int AttackResult, int Armour) {
             return MeleeAttack.ResolveAttack(AttackResult, Armour);
+        }
+
+        [Test, ExpectedException("System.ArgumentOutOfRangeException")]
+        public void ArmourLessThan0_ThrowException() {
+            MeleeAttack.ResolveAttack(1, -1);
+        }
+
+        [Test, ExpectedException("System.ArgumentOutOfRangeException")]
+        public void ArmourGreterThan10_ThrowException() {
+            MeleeAttack.ResolveAttack(1, 11);
         }
     }
 }
