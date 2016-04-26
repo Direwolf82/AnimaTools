@@ -11,7 +11,7 @@ namespace CoreRules.Dictionaries {
             int? totalModifier = 0;
             foreach (var situation in combatSituations) {
                 int? value;
-                AttackModifiers.TryGetValue(situation, out value);
+                _attackModifiers.TryGetValue(situation, out value);
                 if (value == null) {
                     totalModifier = null;
                     break;
@@ -30,7 +30,7 @@ namespace CoreRules.Dictionaries {
             int? totalModifier = 0;
             foreach (var situation in combatSituations) {
                 int? value;
-                PhysicalActionModifiers.TryGetValue(situation, out value);
+                _physicalActionModifiers.TryGetValue(situation, out value);
                 if (value == null) {
                     totalModifier = null;
                     break;
@@ -50,7 +50,7 @@ namespace CoreRules.Dictionaries {
             int? totalModifier = 0;
             foreach (var situation in combatSituations) {
                 int? value;
-                InitiativeModifiers.TryGetValue(situation, out value);
+                _initiativeModifiers.TryGetValue(situation, out value);
                 if (value == null) {
                     totalModifier = null;
                     break;
@@ -70,7 +70,7 @@ namespace CoreRules.Dictionaries {
             int? totalModifier = 0;
             foreach (var situation in combatSituations) {
                 int? value;
-                DodgekModifiers.TryGetValue(situation, out value);
+                _dodgekModifiers.TryGetValue(situation, out value);
                 if (value == null) {
                     totalModifier = null;
                     break;
@@ -90,7 +90,7 @@ namespace CoreRules.Dictionaries {
             int? totalModifier = 0;
             foreach (var situation in combatSituations) {
                 int? value;
-                BlockModifiers.TryGetValue(situation, out value);
+                _blockModifiers.TryGetValue(situation, out value);
                 if (value == null) {
                     totalModifier = null;
                     break;
@@ -103,7 +103,7 @@ namespace CoreRules.Dictionaries {
         }
 
         #region Attack Modifiers
-        static Dictionary<SpecialCombatSituations, int?> AttackModifiers = new Dictionary<SpecialCombatSituations, int?>() {
+        static Dictionary<SpecialCombatSituations, int?> _attackModifiers = new Dictionary<SpecialCombatSituations, int?>() {
             {SpecialCombatSituations.Flanked, -10 },
             {SpecialCombatSituations.FromBehind, -30 },
             {SpecialCombatSituations.Surprised, null },
@@ -127,7 +127,7 @@ namespace CoreRules.Dictionaries {
         #endregion
 
         #region Block Modifiers
-        static Dictionary<SpecialCombatSituations, int?> BlockModifiers = new Dictionary<SpecialCombatSituations, int?>() {
+        static Dictionary<SpecialCombatSituations, int?> _blockModifiers = new Dictionary<SpecialCombatSituations, int?>() {
             {SpecialCombatSituations.Flanked, -30 },
             {SpecialCombatSituations.FromBehind, -80 },
             {SpecialCombatSituations.Surprised, -90 },
@@ -151,7 +151,7 @@ namespace CoreRules.Dictionaries {
         #endregion
 
         #region Dodge Modifiers
-        static Dictionary<SpecialCombatSituations, int?> DodgekModifiers = new Dictionary<SpecialCombatSituations, int?>() {
+        static Dictionary<SpecialCombatSituations, int?> _dodgekModifiers = new Dictionary<SpecialCombatSituations, int?>() {
             {SpecialCombatSituations.Flanked, -30 },
             {SpecialCombatSituations.FromBehind, -80 },
             {SpecialCombatSituations.Surprised, -90 },
@@ -176,7 +176,7 @@ namespace CoreRules.Dictionaries {
         #endregion
 
         #region Initiative Modifiers
-        static Dictionary<SpecialCombatSituations, int?> InitiativeModifiers = new Dictionary<SpecialCombatSituations, int?>() {
+        static Dictionary<SpecialCombatSituations, int?> _initiativeModifiers = new Dictionary<SpecialCombatSituations, int?>() {
             {SpecialCombatSituations.Flanked, 0 },
             {SpecialCombatSituations.FromBehind, 0 },
             {SpecialCombatSituations.Surprised, null },
@@ -201,7 +201,7 @@ namespace CoreRules.Dictionaries {
         #endregion
 
         #region Physical Action Modifiers
-        static Dictionary<SpecialCombatSituations, int?> PhysicalActionModifiers = new Dictionary<SpecialCombatSituations, int?>() {
+        static Dictionary<SpecialCombatSituations, int?> _physicalActionModifiers = new Dictionary<SpecialCombatSituations, int?>() {
             {SpecialCombatSituations.Flanked, 0 },
             {SpecialCombatSituations.FromBehind, 0 },
             {SpecialCombatSituations.Surprised, -90 },

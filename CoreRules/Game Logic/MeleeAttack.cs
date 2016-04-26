@@ -7,58 +7,47 @@ namespace CoreRules.Game_Logic {
         /// <summary>
         /// Calculate the result of a melee attack.
         /// </summary>
-        /// <param name="AttackResult">The result of attacker's final attack less defender's final defense</param>
-        /// <param name="DefenderArmour">The armour value the defender has against the attacker's attack type</param>
+        /// <param name="attackResult">The result of attacker's final attack less defender's final defense</param>
+        /// <param name="defenderArmour">The armour value the defender has against the attacker's attack type</param>
         /// <returns>A tuple that describes if the attack hit for damage and the damage percentage, hit for no damage or triggered a counteracttack with or without a bonus to the counterattack.</returns>
-        public static Tuple<AttackResults, int> ResolveAttack(int AttackResult, int DefenderArmour) {
-            if (DefenderArmour < 0) {
-                throw new ArgumentOutOfRangeException("DefenderArmour", "Armour value canot be less than 0");
-            }
-            else if (DefenderArmour > 10) {
-                throw new ArgumentOutOfRangeException("DefenderArmour", "Armour value cannot be greater than 10");
+        public static Tuple<AttackResults, int> ResolveAttack(int attackResult, int defenderArmour) {
+            if (defenderArmour < 0) {
+                throw new ArgumentOutOfRangeException(nameof(defenderArmour), "Armour value canot be less than 0");
+            } else if (defenderArmour > 10) {
+                throw new ArgumentOutOfRangeException(nameof(defenderArmour), "Armour value cannot be greater than 10");
             }
             int resultValue;
-            if (AttackResult < -301) {
-                AttackResult = -301;
+            if (attackResult < -301) {
+                attackResult = -301;
+            } else if (attackResult > 400) {
+                attackResult = 400;
             }
-            else if (AttackResult > 400) {
-                AttackResult = 400;
-            }
-            if (AttackResult < 0) {
-                resultValue = (((Math.Abs(AttackResult) - 1) - ((Math.Abs(AttackResult) - 1) % 10))) / 2;
+            if (attackResult < 0) {
+                resultValue = (((Math.Abs(attackResult) - 1) - ((Math.Abs(attackResult) - 1) % 10))) / 2;
                 return new Tuple<AttackResults, int>(AttackResults.CounterAttack, resultValue);
-            }
-            else if (AttackResult >= 0 && AttackResult < 30) {
+            } else if (attackResult >= 0 && attackResult < 30) {
                 return new Tuple<AttackResults, int>(AttackResults.HitNoDamage, 0);
-            }
-            else if (AttackResult >= 30 && AttackResult < 40) {
-                if (DefenderArmour < 3) {
+            } else if (attackResult >= 30 && attackResult < 40) {
+                if (defenderArmour < 3) {
                     return new Tuple<AttackResults, int>(AttackResults.HitWithDamage, 10);
-                }
-                else {
+                } else {
                     return new Tuple<AttackResults, int>(AttackResults.HitNoDamage, 0);
                 }
-            }
-            else if (AttackResult >= 40 && AttackResult < 50) {
-                if (DefenderArmour == 0) {
+            } else if (attackResult >= 40 && attackResult < 50) {
+                if (defenderArmour == 0) {
                     return new Tuple<AttackResults, int>(AttackResults.HitWithDamage, 30);
-                }
-                else if (DefenderArmour == 1 || DefenderArmour == 2) {
+                } else if (defenderArmour == 1 || defenderArmour == 2) {
                     return new Tuple<AttackResults, int>(AttackResults.HitWithDamage, 20);
-                }
-                else if (DefenderArmour == 3) {
+                } else if (defenderArmour == 3) {
                     return new Tuple<AttackResults, int>(AttackResults.HitWithDamage, 10);
-                }
-                else {
+                } else {
                     return new Tuple<AttackResults, int>(AttackResults.HitNoDamage, 0);
                 }
-            }
-            else {
-                resultValue = AttackResult - (AttackResult % 10) - (DefenderArmour * 10);
+            } else {
+                resultValue = attackResult - (attackResult % 10) - (defenderArmour * 10);
                 if (resultValue <= 0) {
                     return new Tuple<AttackResults, int>(AttackResults.HitNoDamage, 0);
-                }
-                else {
+                } else {
                     return new Tuple<AttackResults, int>(AttackResults.HitWithDamage, resultValue);
                 }
             }

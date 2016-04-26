@@ -9,21 +9,21 @@ namespace AnimaTools_UnitTests {
     /// Summary description for MeleeAttack_UnitTests
     /// </summary>
     [TestFixture]
-    public class MeleeAttack_UnitTests {
+    public class MeleeAttackUnitTests {
 
-        public MeleeAttack_UnitTests() {
+        public MeleeAttackUnitTests() {
 
         }
 
         [Test, TestCaseSource(typeof(FailedAttackValues), "TestCases")]
-        public int FinalAttackHigherThanDefense(int AttackValue) {
-            Assert.AreEqual(AttackResults.CounterAttack, MeleeAttack.ResolveAttack(AttackValue, 0).Item1);
-            return MeleeAttack.ResolveAttack(AttackValue, 0).Item2;
+        public int FinalAttackHigherThanDefense(int attackValue) {
+            Assert.AreEqual(AttackResults.CounterAttack, MeleeAttack.ResolveAttack(attackValue, 0).Item1);
+            return MeleeAttack.ResolveAttack(attackValue, 0).Item2;
         }
 
         [Test, TestCaseSource(typeof(SuccessfulAttacks), "TestCases")]
-        public Tuple<AttackResults, int> AttackEqualToOrHigherThanDefense(int AttackResult, int Armour) {
-            return MeleeAttack.ResolveAttack(AttackResult, Armour);
+        public Tuple<AttackResults, int> AttackEqualToOrHigherThanDefense(int attackResult, int armour) {
+            return MeleeAttack.ResolveAttack(attackResult, armour);
         }
 
         [Test, ExpectedException("System.ArgumentOutOfRangeException")]
