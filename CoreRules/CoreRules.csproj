@@ -37,11 +37,18 @@
     <!-- A reference to the entire .NET Framework is automatically included -->
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Creatures\Creature.cs" />
+    <Compile Include="Creatures\CreatureAttack.cs" />
+    <Compile Include="Creatures\ICreature.cs" />
+    <Compile Include="Creatures\ICreatureAttack.cs" />
     <Compile Include="Dictionaries\AdditionalDefensePenalty.cs" />
     <Compile Include="Dictionaries\DirectedAttacks.cs" />
     <Compile Include="Dictionaries\SpecialCombatSituationModifiers.cs" />
+    <Compile Include="Enums\AnimaClass.cs" />
     <Compile Include="Enums\AttackResults.cs" />
     <Compile Include="Enums\ActiveCombatActions.cs" />
+    <Compile Include="Enums\AttackTypes.cs" />
+    <Compile Include="Enums\CreatureCategory.cs" />
     <Compile Include="Enums\HumanoidBodyParts.cs" />
     <Compile Include="Enums\PasiveCombatActions.cs" />
     <Compile Include="Enums\SpecialCombatSituations.cs" />
