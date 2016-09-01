@@ -13,7 +13,8 @@ namespace CoreRules.Game_Logic {
         public static Tuple<AttackResults, int> ResolveAttack(int attackResult, int defenderArmour) {
             if (defenderArmour < 0) {
                 throw new ArgumentOutOfRangeException(nameof(defenderArmour), "Armour value canot be less than 0");
-            } else if (defenderArmour > 10) {
+            }
+            if (defenderArmour > 10) {
                 throw new ArgumentOutOfRangeException(nameof(defenderArmour), "Armour value cannot be greater than 10");
             }
             int resultValue;
@@ -23,34 +24,35 @@ namespace CoreRules.Game_Logic {
                 attackResult = 400;
             }
             if (attackResult < 0) {
-                resultValue = (((Math.Abs(attackResult) - 1) - ((Math.Abs(attackResult) - 1) % 10))) / 2;
+                resultValue = (Math.Abs(attackResult) - 1 - (Math.Abs(attackResult) - 1) % 10) / 2;
                 return new Tuple<AttackResults, int>(AttackResults.CounterAttack, resultValue);
-            } else if (attackResult >= 0 && attackResult < 30) {
+            }
+            if (attackResult >= 0 && attackResult < 30) {
                 return new Tuple<AttackResults, int>(AttackResults.HitNoDamage, 0);
-            } else if (attackResult >= 30 && attackResult < 40) {
+            }
+            if (attackResult >= 30 && attackResult < 40) {
                 if (defenderArmour < 3) {
                     return new Tuple<AttackResults, int>(AttackResults.HitWithDamage, 10);
-                } else {
-                    return new Tuple<AttackResults, int>(AttackResults.HitNoDamage, 0);
                 }
-            } else if (attackResult >= 40 && attackResult < 50) {
+                return new Tuple<AttackResults, int>(AttackResults.HitNoDamage, 0);
+            }
+            if (attackResult >= 40 && attackResult < 50) {
                 if (defenderArmour == 0) {
                     return new Tuple<AttackResults, int>(AttackResults.HitWithDamage, 30);
-                } else if (defenderArmour == 1 || defenderArmour == 2) {
+                }
+                if (defenderArmour == 1 || defenderArmour == 2) {
                     return new Tuple<AttackResults, int>(AttackResults.HitWithDamage, 20);
-                } else if (defenderArmour == 3) {
+                }
+                if (defenderArmour == 3) {
                     return new Tuple<AttackResults, int>(AttackResults.HitWithDamage, 10);
-                } else {
-                    return new Tuple<AttackResults, int>(AttackResults.HitNoDamage, 0);
                 }
-            } else {
-                resultValue = attackResult - (attackResult % 10) - (defenderArmour * 10);
-                if (resultValue <= 0) {
-                    return new Tuple<AttackResults, int>(AttackResults.HitNoDamage, 0);
-                } else {
-                    return new Tuple<AttackResults, int>(AttackResults.HitWithDamage, resultValue);
-                }
+                return new Tuple<AttackResults, int>(AttackResults.HitNoDamage, 0);
             }
+            resultValue = attackResult - (attackResult % 10) - (defenderArmour * 10);
+            if (resultValue <= 0) {
+                return new Tuple<AttackResults, int>(AttackResults.HitNoDamage, 0);
+            }
+            return new Tuple<AttackResults, int>(AttackResults.HitWithDamage, resultValue);
         }
     }
 }

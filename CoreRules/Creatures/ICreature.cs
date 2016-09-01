@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using CoreRules.Enums;
 
@@ -26,18 +25,23 @@ namespace CoreRules.Creatures {
         int PsychicResistance { get; }
         int VenomResistance { get; }
         int DiseaseResistance { get; }
-        List<CreatureAttack> Attacks { get; }
+        IEnumerable<ICreatureAttack> Attacks { get; }
         int AttackAbility { get; }
         int DodgeAbility { get; }
         int BlockAbility { get; }
-        List<AttackTypes> Armour { get; }
+        IEnumerable<AttackTypes> Armour { get; }
         int Regeneration { get; }
         int MovementValue { get; }
         int? Fatigue { get; }
         bool Tireless { get; }
 
+        /// <summary>
+        /// Adjusts creature's life points by the damage taken. Use when Armour types will be irrelevant.
+        /// </summary>
+        /// <param name="damageTaken">Amount of damage dealt by attack</param>
         void DamageCreature(int damageTaken);
-        void DamageCreature(int damageTaken, List<AttackTypes> damageTypes);
+
+        void DamageCreature(int damageTaken, IEnumerable<AttackTypes> damageTypes);
 
     }
 }

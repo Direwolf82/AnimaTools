@@ -17,7 +17,7 @@ namespace CoreRules.Creatures {
             get { return isElemental; }
             internal set {
                 isElemental = value;
-                if (value == true) {
+                if (value) {
                     IsUndead = false;
                 }
             }
@@ -26,7 +26,7 @@ namespace CoreRules.Creatures {
             get { return isUndead; }
             internal set {
                 isUndead = value;
-                if (value == true) {
+                if (value) {
                     IsElemental = false;
                 }
             }
@@ -63,7 +63,7 @@ namespace CoreRules.Creatures {
         public int VenomResistance { get; internal set; }
         public int DiseaseResistance { get; internal set; }
         #endregion
-        public List<CreatureAttack> Attacks { get; internal set; }
+        public IEnumerable<ICreatureAttack> Attacks { get; internal set; }
         public int AttackAbility { get; internal set; }
         public int Regeneration { get; internal set; }
         public int MovementValue { get; internal set; }
@@ -71,7 +71,7 @@ namespace CoreRules.Creatures {
         public bool Tireless { get; internal set; }
         public int DodgeAbility { get; internal set; }
         public int BlockAbility { get; internal set; }
-        public List<AttackTypes> Armour {
+        public IEnumerable<AttackTypes> Armour {
             get {
                 throw new NotImplementedException();
             }
@@ -94,7 +94,7 @@ namespace CoreRules.Creatures {
             }
         }
 
-        public virtual void DamageCreature(int damageTaken, List<AttackTypes> damageTypes) {
+        public virtual void DamageCreature(int damageTaken, IEnumerable<AttackTypes> damageTypes) {
             throw new NotImplementedException();
         }
 

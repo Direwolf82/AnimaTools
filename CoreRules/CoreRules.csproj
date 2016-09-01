@@ -37,7 +37,7 @@
     <!-- A reference to the entire .NET Framework is automatically included -->
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Creatures\Creature.cs" />
+    <Compile Include="Creatures\BaseCreature.cs" />
     <Compile Include="Creatures\CreatureAttack.cs" />
     <Compile Include="Creatures\ICreature.cs" />
     <Compile Include="Creatures\ICreatureAttack.cs" />
